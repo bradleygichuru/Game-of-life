@@ -1,2 +1,2 @@
-# Game-of-life
-writen in p5.js
+# Game-of-Life
+Written in p5.js

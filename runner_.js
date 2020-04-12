@@ -10,7 +10,7 @@ function setup(){
 
 function draw(){
   grid_1.cells.forEach((cell)=>{
-    fill(51); 
+    fill(51);
     rect(cell.x,cell.y,grid_1.draw_width,grid_1.draw_width)
     //grid_1.update()
   })

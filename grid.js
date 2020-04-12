@@ -24,5 +24,4 @@ class Grid{
       cell.update(this.cells)
     })
   }
-  
 }
