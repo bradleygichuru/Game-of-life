@@ -5,7 +5,7 @@ class Cell{
     this.state = state;
   }
   update(cells){
-    //filter  for this's cell neighbouring cells 
+    //filter for this cell neighbouring cells
     let neighbours = cells.filter((el)=>{
       return(
         ((el.x==this.x-cell_width_)&&(el.y==this.y-cell_width_))||//
@@ -21,8 +21,8 @@ class Cell{
     //to store stats about neighbours
     let census = {
       neighbours_alive:0
-    } 
-    //make census before update 
+    }
+    //make census before update
     neighbours.forEach((cell)=>{
       if (cell.state === 1) {
         census.neighbours_alive++;
@@ -44,12 +44,6 @@ class Cell{
     else if(census.neighbours_alive < 2){
       this.state = 0;
       //death by underpopulation
-
     }
   }
-  
-
 }
-    
-
-    
