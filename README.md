@@ -1,3 +1,2 @@
 # Game-of-Life
-john conway's game of life written in js 
-Written in p5.js
+john conway's game of life written in p5.js
