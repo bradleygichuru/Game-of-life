@@ -1,52 +1,92 @@
-class Cell{
-  constructor(x,y,cell_width,state){
+class Cell {
+  constructor(x, y, cell_width, state) {
     this.x = x;
     this.y = y;
-    this.state = 0;
+    this.working_state = state;
+    this.new_state = 0;
     this.census;
-    this.neighbours;
+    this.neighbours =[];
     this.cell_width = cell_width
   }
-  update(cells){
+  update(cells) {
     //filter for this cell neighbouring cells
-    this.neighbours = cells.filter((el)=>{
-      return(
-        (el.x==this.x-this.cell_width && el.y==this.y-this.cell_width)||
-        (el.x==this.x && el.y==this.y+this.cell_width)||
-        (el.x==this.x+this.cell_width && el.y-this.cell_width)||
-        (el.x==this.x-this.cell_width && el.y==this.y)||
-        (el.x==this.x+this.cell_width && el.y==this.y)||
-        (el.x==this.x-this.cell_width && el.y==this.y-this.cell_width)||
-        (el.x==this.x && el.y==this.y-this.cell_width)||
-        (el.x==this.x+this.cell_width && el.y==this.y-this.cell_width)
-      )
+    //TODO neighbours should be 8 FIXME this code TODO
+    this.census = {
+      neighbours_alive: 0
+    }
+    cells.forEach((cell)=>{
+      if (cell.x == this.x - this.cell_width && cell.y == this.y - this.cell_width) {
+        if (cell.working_state === 1) {
+          this.census.neighbours_alive++;
+        }
+        this.neighbours.push(cell)
+      }
+      if (cell.x == this.x && cell.y == this.y + this.cell_width) {
+        if (cell.working_state === 1) {
+          this.census.neighbours_alive++;
+        }
+        this.neighbours.push(cell)
+      }
+      if (cell.x == this.x + this.cell_width && cell.y - this.cell_width) {
+        if (cell.working_state === 1) {
+          this.census.neighbours_alive++;
+        }
+        this.neighbours.push(cell)
+      }
+      if (cell.x == this.x - this.cell_width && cell.y == this.y) {
+        if (cell.working_state === 1) {
+          this.census.neighbours_alive++;
+        }
+        this.neighbours.push(cell)
+      }
+      if (cell.x == this.x + this.cell_width && cell.y == this.y) {
+        if (cell.working_state === 1) {
+          this.census.neighbours_alive++;
+        }
+        this.neighbours.push(cell)
+      }
+      if (cell.x == this.x - this.cell_width && cell.y == this.y + this.cell_width) {
+        if (cell.working_state === 1) {
+          this.census.neighbours_alive++;
+        }
+        this.neighbours.push(cell)
+      }
+      if (cell.x == this.x && cell.y == this.y - this.cell_width) {
+        if (cell.working_state === 1) {
+          this.census.neighbours_alive++;
+        }
+        this.neighbours.push(cell)
+      }
+      if (cell.x == this.x + this.cell_width && cell.y == this.y - this.cell_width) {
+        if (cell.working_state === 1) {
+          this.census.neighbours_alive++;
+        }
+        this.neighbours.push(cell)
+      }
+      
     })
     //to store stats about neighbours
-    this.census = {
-      neighbours_alive:0
-    }
+    
     //make census before update
-    this.neighbours.forEach((cell)=>{
-      if(cell.state === 1) {
-        this.census.neighbours_alive++;
-      }
-    })
+    //this.neighbours.forEach((cell) => {
+      //if (cell.working_state === 1) {
+        //this.census.neighbours_alive++;
+      //}
+    //})
     //update based on cellected census
-    if(this.state === 0 && this.census.neighbours_alive === 3){
-      this.state = 1;
+    if (this.working_state == 0 && this.census.neighbours_alive === 3) {
+      this.new_state = 1;
       //born
-    }
-    else if(this.state == 1 &&( this.census.neighbours_alive === 2 || this.census.neighbours_alive ===3)){
-      this.state =1;
+    } else if (this.working_state == 1 && (this.census.neighbours_alive === 2 || this.census.neighbours_alive === 3)) {
+      this.new_state = 1;
       //lives to the next generation
-    }
-    else if(this.census.neighbours_alive > 3){
-      this.state=0;
+    } else if (this.working_state == 1 && this.census.neighbours_alive >= 4) {
+      this.new_state = 0;
       //death by overcrowding
+    } else if (this.working_state == 1 && this.census.neighbours_alive <= 1 ) {
+      this.new_state = 0;
+      //death by underpopulation/ death by solitude 
     }
-    else if(this.census.neighbours_alive < 2){
-      this.state = 0;
-      //death by underpopulation
-    }
+    
   }
 }
