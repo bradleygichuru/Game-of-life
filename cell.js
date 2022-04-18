@@ -85,7 +85,7 @@ class Cell {
       //death by overcrowding
     } else if (this.working_state == 1 && this.census.neighbours_alive <= 1 ) {
       this.new_state = 0;
-      //death by underpopulation/ death by solitude 
+      //death by underpopulation death by solitude 
     }
     
   }
